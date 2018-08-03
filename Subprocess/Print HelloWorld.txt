@@ -73,7 +73,7 @@ print stdout
 *******************************************************
 
 Popen takes arguments stdin, stdout, stderr. assigning PIPE to in, out or err starts a new (child) process. 
-universal_newlines is to remove extra characters (without it, b'' - denotes byte stream, \n is the newline)
+universal_newlines is to remove extra characters (without it, b'' - denotes byte stream, \n is the newline).. this is required in Py3 & above
 p.communicate starts the communication. it returns a tuple of the form(stdout, stderr). [0]denotes stdout here
 returncode is set to:
             None: when the process is active
