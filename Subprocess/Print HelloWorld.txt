@@ -114,5 +114,10 @@ Setting the shell argument to a true value causes subprocess to spawn an interme
 and tell it to run the command. In other words, using an intermediate shell means that variables, glob patterns, 
 and other special shell features in the command string are processed before the command is run.
 Recommended practise is to not use shell(or ignore).
+
+
+*******************************************************
+More on this:
+            Ping using pipes
             
 Resources: https://www.bogotobogo.com/python/python_subprocess_module.php
