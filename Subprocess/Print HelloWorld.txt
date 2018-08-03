@@ -1,3 +1,12 @@
+Syntax:
+    class subprocess.Popen(args, bufsize=0, executable=None, 
+                       stdin=None, stdout=None, stderr=None, 
+                       preexec_fn=None, close_fds=False, 
+                       shell=False, cwd=None, env=None, universal_newlines=False, 
+                       startupinfo=None, creationflags=0)
+    
+*******************************************************************************************************************************
+
 #!/usr/bin/env python
 import subprocess
 print(subprocess.Popen("echo hi", shell=True, stdout=subprocess.PIPE, universal_newlines=True).communicate()[0])
@@ -82,13 +91,28 @@ print (retval)
 
 ******************************************************
 
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+p = Popen(["df", "-h"], stdout=PIPE, universal_newlines=True)
+p1 = Popen(["grep", "12"], stdin=p.stdout, stdout=PIPE, universal_newlines=True)
+p.stdout.close()
+stdout = p1.communicate()[0]
+print (stdout)
+
+*****************************************************
+
 Popen takes arguments stdin, stdout, stderr. assigning PIPE to in, out or err starts a new (child) process. 
+other Valid values are an existing file descriptor (a positive integer), an existing file object, and None. 
 universal_newlines is to remove extra characters (without it, b'' - denotes byte stream, \n is the newline).. this is required in Py3 & above
-p.communicate starts the communication. it returns a tuple of the form(stdout, stderr). [0]denotes stdout here
+p.communicate starts the communication. it returns a tuple(stdout, stderr). [0]denotes stdout here
 returncode is set to:
             None: when the process is active
             0: when the process is terminated
             -n : when the process is terminated by signal n
 while using shell, give as arguments n not string. 
-Recommended practise is to not use shell(or ignore). shell simply means programs get executed from shell
+Setting the shell argument to a true value causes subprocess to spawn an intermediate shell process, 
+and tell it to run the command. In other words, using an intermediate shell means that variables, glob patterns, 
+and other special shell features in the command string are processed before the command is run.
+Recommended practise is to not use shell(or ignore).
             
+Resources: https://www.bogotobogo.com/python/python_subprocess_module.php
