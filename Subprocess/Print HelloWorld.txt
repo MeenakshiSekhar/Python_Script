@@ -1,0 +1,84 @@
+#!/usr/bin/env python
+import subprocess
+print(subprocess.Popen("echo hi", shell=True, stdout=subprocess.PIPE, universal_newlines=True).communicate()[0])
+
+********************************************************
+    
+    
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+p = Popen('echo Hello World', shell=True, stdout=PIPE, universal_newlines=True)
+stdout = p.communicate()[0]
+print (stdout)
+
+********************************************************
+
+
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+p = Popen('echo Hello World', shell=True, stdout=PIPE, universal_newlines=True)
+stdout = p.communicate()[0]
+print (stdout.split())
+
+prints every component in tuple
+
+********************************************************
+
+
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+p = Popen('echo Hello World', shell=True, stdout=PIPE)
+stdout = p.communicate()[0]
+print (stdout.strip())
+
+strips \n in output, b'' still gets printed
+
+********************************************************
+
+
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+print(Popen("echo hello world", shell=True, stdout=PIPE, universal_newlines = True).communicate()[0])
+
+*******************************************************
+
+
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+p = Popen(["echo", "HelloWorld"], shell=False, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+
+*********************************************************
+
+#!/usr/bin/env python
+from subprocess import Popen, PIPE
+p = Popen('echo Hello World', shell=True,  stdout=PIPE, stderr=PIPE, universal_newlines=True)
+stdout, stderr = p.communicate()
+if p.returncode != 0:
+    if not err:
+        print ("Here")
+rc = p.returncode
+print(rc)
+print (stdout,"no error", stderr) #stdout by default comes with newline character
+
+******************************************************
+
+#!/usr/bin/env python 
+ 
+from subprocess import Popen, PIPE
+ 
+process = Popen(['cat', 'test.py'], stdout=PIPE, stderr=PIPE)
+stdout, stderr = process.communicate()
+print stdout
+
+*******************************************************
+
+Popen takes arguments stdin, stdout, stderr. assigning PIPE to in, out or err starts a new (child) process. 
+universal_newlines is to remove extra characters (without it, b'' - denotes byte stream, \n is the newline)
+p.communicate starts the communication. it returns a tuple of the form(stdout, stderr). [0]denotes stdout here
+returncode is set to:
+            None: when the process is active
+            0: when the process is terminated
+            -n : when the process is terminated by signal n
+while using shell, give as arguments n not string. 
+Recommended practise is to not use shell(or ignore). shell simply means programs get executed from shell
+            
